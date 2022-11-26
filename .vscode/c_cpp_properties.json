@@ -3,8 +3,9 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**",
-                "/usr/include/linux/**",
+                "${workspaceFolder}/workflow/linux/include/**",
+                "${workspaceFolder}/workflow/linux/fs/ext2-inc/**",
+                "${workspaceFolder}/workflow/linux/arch/x86/include/generated"
             ],
             "defines": [],
             "compilerPath": "/usr/lib/ccache/bin/clang",

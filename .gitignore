@@ -1,4 +1,2 @@
-.Module*
-.modules*
-Module*
-modules*
+workflow/
+.vagrant
