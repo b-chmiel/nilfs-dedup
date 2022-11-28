@@ -10,6 +10,7 @@ modules:
 linux:
 	cp config-kernel workflow/linux/.config
 	make -C workflow/linux -j$(JOBS) CC=$(CC)
+	make -C workflow/linux modules
 
 buildroot:
 	cp config-buildroot workflow/buildroot/.config

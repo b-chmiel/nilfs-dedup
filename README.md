@@ -38,6 +38,9 @@ After each change in module code:
 
 And inside vm: `sh modules.sh`
 
+If error about dirty version mismatch occurs
+while loading module, rebuild kernel and it's modules.
+
 ## Buildroot and kernel configuration
 
 If any configuration changed, remember to replace `./.config-*` files
