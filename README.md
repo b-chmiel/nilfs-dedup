@@ -42,3 +42,8 @@ And inside vm: `sh modules.sh`
 
 If any configuration changed, remember to replace `./.config-*` files
 with changed ones.
+
+### Buildroot
+
+`modules.sh` script is located at `workflow/buildroot/board/incvis/rootfs-overlay`
+`post-build.sh` script is located at `workflow/buildroot/`

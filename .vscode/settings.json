@@ -3,5 +3,6 @@
 	"files.associations": {
 		"*.h": "cpp",
 		"*.inc": "cpp"
-	}
+	},
+	"C_Cpp.errorSquiggles": "Disabled"
 }
