@@ -5,7 +5,7 @@
             "includePath": [
                 "${workspaceFolder}/workflow/linux/include/**",
                 "${workspaceFolder}/workflow/linux/fs/ext2-inc/**",
-                "${workspaceFolder}/workflow/linux/arch/x86/include/generated"
+                "${workspaceFolder}/workflow/linux/arch/x86/include/**"
             ],
             "defines": [],
             "compilerPath": "/usr/lib/ccache/bin/clang",
