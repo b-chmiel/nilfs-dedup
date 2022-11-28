@@ -1,4 +1,6 @@
 MODULE_PATH := fs/ext2-inc
+JOBS = 8
+CC = gcc
 
 .PHONY: modules linux buildroot vm gdb-debug vm-debug clean
 
@@ -6,10 +8,12 @@ modules:
 	make -C workflow/linux M=$(MODULE_PATH)
 
 linux:
-	make -C workflow/linux -j8
+	cp config-kernel workflow/linux/.config
+	make -C workflow/linux -j$(JOBS) CC=$(CC)
 
 buildroot:
-	make -C workflow/buildroot -j8
+	cp config-buildroot workflow/buildroot/.config
+	make -C workflow/buildroot -j$(JOBS) CC=$(CC)
 
 vm:
 	qemu-system-x86_64 \

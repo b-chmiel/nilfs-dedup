@@ -1,0 +1,8 @@
+[submodule "workflow/linux"]
+	path = workflow/linux
+	url = git@github.com:bachm44/linux.git
+	branch = ext2-inc-5.15
+[submodule "workflow/buildroot"]
+	path = workflow/buildroot
+	url = git@github.com:bachm44/buildroot.git
+	branch = ext2-inc

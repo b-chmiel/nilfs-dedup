@@ -37,3 +37,8 @@ After each change in module code:
 `make modules`
 
 And inside vm: `sh modules.sh`
+
+## Buildroot and kernel configuration
+
+If any configuration changed, remember to replace `./.config-*` files
+with changed ones.
