@@ -41,6 +41,19 @@ And inside vm: `sh modules.sh`
 If error about dirty version mismatch occurs
 while loading module, rebuild kernel and it's modules.
 
+### Kernel stacktrace
+
+There is a usefull utility: `workflow/linux/scripts/decode_stacktrace.sh` which
+allows to decode generated kernel stacktrace. It can be invoked by:
+
+```
+sh scripts/decode_stacktrace.sh vmlinux < stacktrace.log
+```
+
+where stacktrace.log is file with copied stacktrace content.
+
+
+
 ## Buildroot and kernel configuration
 
 If any configuration changed, remember to replace `./.config-*` files
