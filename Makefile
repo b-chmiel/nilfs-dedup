@@ -1,4 +1,4 @@
-MODULE_PATH := fs/ext2-inc
+MODULE_PATH := fs/ext2
 JOBS = 8
 CC = gcc
 
