@@ -6,3 +6,6 @@
 	path = workflow/buildroot
 	url = git@github.com:bachm44/buildroot.git
 	branch = ext2-versioning
+[submodule "workflow/nilfs-utils"]
+	path = workflow/nilfs-utils
+	url = git@github.com:bachm44/nilfs-utils
