@@ -25,6 +25,7 @@ vm:
 -append "root=/dev/sda rw console=ttyS0,115200 acpi=off nokaslr noexec=off noexec32=off nosmep nosmap" \
 -serial stdio \
 -display none \
+-enable-kvm \
 -virtfs local,path=$(shell pwd),mount_tag=host0,security_model=mapped,id=host0
 
 gdb-debug:
