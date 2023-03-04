@@ -1,16 +1,11 @@
-MODULE_PATH := fs/ext2
 JOBS = 8
 CC = gcc
 
-.PHONY: modules linux buildroot vm gdb-debug vm-debug clean
-
-modules:
-	make -C workflow/linux M=$(MODULE_PATH)
+.PHONY: linux buildroot vm gdb-debug vm-debug clean
 
 linux:
 	cp config-kernel workflow/linux/.config
 	make -C workflow/linux -j$(JOBS) CC=$(CC)
-	make -C workflow/linux modules
 
 buildroot:
 	cp config-buildroot workflow/buildroot/.config
