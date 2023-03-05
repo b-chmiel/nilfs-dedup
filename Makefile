@@ -1,24 +1,27 @@
 JOBS = 8
-CC = gcc
 
 .PHONY: linux buildroot vm gdb-debug vm-debug clean
 
+ifndef SERIAL_TTY
+$(warning SERIAL_TTY is not set)
+endif
+
 linux:
 	cp config-kernel workflow/linux/.config
-	make -C workflow/linux -j$(JOBS) CC=$(CC)
+	make -C workflow/linux -j$(JOBS) LLVM=1
 
 buildroot:
 	cp config-buildroot workflow/buildroot/.config
-	make -C workflow/buildroot -j$(JOBS) CC=$(CC)
+	make -C workflow/buildroot -j$(JOBS) CC=gcc
 
-vm:
+vm-tty:
 	qemu-system-x86_64 \
 -kernel workflow/linux/arch/x86/boot/bzImage \
 -boot c \
 -m 2049M \
 -hda workflow/buildroot/output/images/rootfs.ext4 \
 -append "root=/dev/sda rw console=ttyS0,115200 acpi=off nokaslr noexec=off noexec32=off nosmep nosmap" \
--serial stdio \
+-serial ${SERIAL_TTY} \
 -display none \
 -enable-kvm \
 -virtfs local,path=$(shell pwd),mount_tag=host0,security_model=mapped,id=host0
