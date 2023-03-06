@@ -20,8 +20,9 @@ vm-tty:
 -boot c \
 -m 2049M \
 -hda workflow/buildroot/output/images/rootfs.ext4 \
--append "root=/dev/sda rw console=ttyS0,115200 acpi=off nokaslr noexec=off noexec32=off nosmep nosmap" \
+-append "root=/dev/sda rw console=ttyS0,115200 acpi=noirq nokaslr noexec=off noexec32=off nosmep nosmap" \
 -serial ${SERIAL_TTY} \
+-no-reboot \
 -display none \
 -enable-kvm \
 -virtfs local,path=$(shell pwd),mount_tag=host0,security_model=mapped,id=host0
