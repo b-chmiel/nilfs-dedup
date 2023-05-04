@@ -1,2 +1,5 @@
 .vagrant
 .gdb_history
+out/
+fio-job.cfg
+test_template.sh
