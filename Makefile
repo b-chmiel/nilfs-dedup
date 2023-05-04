@@ -18,7 +18,7 @@ vm-tty:
 	qemu-system-x86_64 \
 -kernel workflow/linux/arch/x86/boot/bzImage \
 -boot c \
--m 2049M \
+-m 512M \
 -hda workflow/buildroot/output/images/rootfs.ext4 \
 -append "root=/dev/sda rw console=ttyS0,115200 acpi=noirq nokaslr noexec=off noexec32=off nosmep nosmap" \
 -serial ${SERIAL_TTY} \
