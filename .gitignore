@@ -2,4 +2,4 @@
 .gdb_history
 out/
 fio-job.cfg
-test_template.sh
+test_template*
