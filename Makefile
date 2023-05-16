@@ -28,7 +28,7 @@ vm-tty:
 -virtfs local,path=$(shell pwd),mount_tag=host0,security_model=mapped,id=host0
 
 gdb-debug:
-	gdb workflow/linux/vmlinux --command=gdbcmd
+	gdb workflow/linux/vmlinux --command=gdb/gdbcmd
 
 vm-debug:
 	qemu-system-x86_64 \
