@@ -19,7 +19,7 @@ vm-tty:
 -kernel workflow/linux/arch/x86/boot/bzImage \
 -boot c \
 -m 512M \
--hda workflow/buildroot/output/images/rootfs.ext4 \
+-drive file=workflow/buildroot/output/images/rootfs.ext4,format=raw,index=0,media=disk \
 -append "root=/dev/sda rw console=ttyS0,115200 acpi=noirq nokaslr noexec=off noexec32=off nosmep nosmap" \
 -serial ${SERIAL_TTY} \
 -no-reboot \
@@ -35,7 +35,7 @@ vm-debug:
 -kernel workflow/linux/arch/x86/boot/bzImage \
 -boot c \
 -m 2049M \
--hda workflow/buildroot/output/images/rootfs.ext4 \
+-drive file=workflow/buildroot/output/images/rootfs.ext4,format=raw,index=0,media=disk \
 -append "root=/dev/sda rw console=ttyS0,115200 acpi=off nokaslr noexec=off noexec32=off nosmep nosmap" \
 -serial stdio \
 -display none \
