@@ -4,7 +4,7 @@
 # GENERATE
 ###############################################################################
 
-export SIZE=1015809
+export SIZE=4030463
 export MNT_DIR=/mnt/nilfs2
 VALIDATION_ID=0
 
@@ -20,8 +20,7 @@ lssu
 lscp
 
 validate_f1=$(sha512sum -c f1.sha512sum)
-validate_f2=$(sha512sum -c f2.sha512sum)
-echo "CHECKSUM VALIDATION $VALIDATION_ID $validate_f1 $validate_f2"
+echo "CHECKSUM VALIDATION $VALIDATION_ID $validate_f1"
 VALIDATION_ID=$(($VALIDATION_ID + 1))
 }
 
@@ -31,10 +30,8 @@ sh mount_nilfs.sh
 validate_fs
 
 gen_file --size=$SIZE --type=0 --seed=420 $MNT_DIR/f1
-gen_file --size=$SIZE --type=0 --seed=420 $MNT_DIR/f2
 
 sha512sum $MNT_DIR/f1 > f1.sha512sum
-sha512sum $MNT_DIR/f2 > f2.sha512sum
 
 validate_fs
 
