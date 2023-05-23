@@ -1,71 +1,137 @@
 #!/bin/sh
 
 ###############################################################################
-# GENERATE
+# SETUP
 ###############################################################################
 
-export SIZE=4030463
-export MNT_DIR=/mnt/nilfs2
+# set logging level
+# echo "1" > /proc/sys/kernel/printk
+
+FS_FILE_SIZE=18G
+FS_BIN_FILE=/nilfs2.bin
+LOOP_INTERFACE=/dev/loop0
+MNT_DIR=/mnt/nilfs2
+
 VALIDATION_ID=0
 
-function dir_size {
+MOUNT_DIRECTORY=/mnt/work
+
+FILE1=f1
+FILE2=f2
+
+function mount_output_directory {
+directory=$1
+
+echo "Mounting local folder in ${MOUNT_DIRECTORY}"
+mkdir -pv $MOUNT_DIRECTORY
+mount -t 9p -o trans=virtio,version=9p2000.L host0 $MOUNT_DIRECTORY
+rm -rf $directory
+mkdir -pv $directory
+}
+
+function mount_nilfs {
+rm -f $FS_BIN_FILE
+fallocate -l $FS_FILE_SIZE $FS_BIN_FILE
+losetup -P $LOOP_INTERFACE $FS_BIN_FILE
+mkfs.nilfs2 $LOOP_INTERFACE -B 16
+nilfs-tune -i 1 $LOOP_INTERFACE
+mkdir -p $MNT_DIR
+mount -t nilfs2 $LOOP_INTERFACE $MNT_DIR
+}
+
+function remount_nilfs {
+losetup -P $LOOP_INTERFACE $FS_BIN_FILE
+mkdir -p $MNT_DIR
+mount -t nilfs2 $LOOP_INTERFACE $MNT_DIR
+}
+
+function dirsize {
 directory=$1
 df | grep $directory
 }
 
-function validate_fs {
-size=$(dir_size $MNT_DIR)
-echo "BEGIN_SIZE $MNT_DIR SIZE $VALIDATION_ID $size END_SIZE"
-lssu
-lscp
+function validate_checksum {
+directory=$1
+sha512sum -c $FILE1.sha512sum | tee $directory/validate_${VALIDATION_ID}_checksum_$FILE1
+sha512sum -c $FILE2.sha512sum | tee $directory/validate_${VALIDATION_ID}_checksum_$FILE2
+}
 
-validate_f1=$(sha512sum -c f1.sha512sum)
-echo "CHECKSUM VALIDATION $VALIDATION_ID $validate_f1"
+function validate {
+directory=$1
+dirsize $MNT_DIR | tee $directory/validate_${VALIDATION_ID}_dirsize
+
+lssu | tee $directory/validate_${VALIDATION_ID}_lssu
+lscp | tee $directory/validate_${VALIDATION_ID}_lscp
+
+validate_checksum $directory
+
 VALIDATION_ID=$(($VALIDATION_ID + 1))
 }
 
+###############################################################################
+# GENERATE
+###############################################################################
 
-sh mount_nilfs.sh
+#!/bin/sh
 
-validate_fs
+OUTPUT_DIRECTORY=$MOUNT_DIRECTORY/out/tty_runner/generate/
 
-gen_file --size=$SIZE --type=0 --seed=420 $MNT_DIR/f1
+mount_output_directory $OUTPUT_DIRECTORY
 
-sha512sum $MNT_DIR/f1 > f1.sha512sum
+echo '1' > $OUTPUT_DIRECTORY/started
 
-validate_fs
+mount_nilfs
 
-umount /mnt/nilfs2
+validate $OUTPUT_DIRECTORY
+
+gen_file --size=4096 --type=0 --seed=420 $MNT_DIR/$FILE1
+gen_file --size=4096 --type=0 --seed=420 $MNT_DIR/$FILE2
+
+sha512sum $MNT_DIR/$FILE1 > $FILE1.sha512sum
+sha512sum $MNT_DIR/$FILE2 > $FILE2.sha512sum
+
+validate $OUTPUT_DIRECTORY
+
+umount $MNT_DIR
 
 
 ###############################################################################
 # DEDUPLICATE
 ###############################################################################
 
-export FS_BIN_FILE=/nilfs2.bin
-export LOOP_INTERFACE=/dev/loop0
-VALIDATION_ID=0
+#!/bin/sh
 
-losetup -P $LOOP_INTERFACE $FS_BIN_FILE
-mkdir -p $MNT_DIR
-mount -t nilfs2 $LOOP_INTERFACE $MNT_DIR
+OUTPUT_DIRECTORY=$MOUNT_DIRECTORY/out/tty_runner/dedup/
 
-validate_fs
+mount_output_directory $OUTPUT_DIRECTORY
 
-dedup /dev/loop0
+echo '1' > $OUTPUT_DIRECTORY/started
 
-validate_fs
+remount_nilfs
 
-umount /mnt/nilfs2
+validate $OUTPUT_DIRECTORY
+
+dedup -v $LOOP_INTERFACE
+
+validate $OUTPUT_DIRECTORY
+
+umount $MNT_DIR
 
 ###############################################################################
 # VALIDATE
 ###############################################################################
 
-losetup -P $LOOP_INTERFACE $FS_BIN_FILE
-mkdir -p $MNT_DIR
-mount -t nilfs2 $LOOP_INTERFACE $MNT_DIR
+OUTPUT_DIRECTORY=$MOUNT_DIRECTORY/out/tty_runner/validate/
 
-validate_fs
+mount_output_directory $OUTPUT_DIRECTORY
 
-umount /mnt/nilfs2
+echo '1' > $OUTPUT_DIRECTORY/started
+
+remount_nilfs
+
+validate $OUTPUT_DIRECTORY
+
+cd /mnt/work/workflow/buildroot/output/build/nilfs-utils-2.3.0-dev-1e1b455966a62df15af9afec5362e7d90296e815
+
+nilfs_cleanerd
+nilfs-clean -v
