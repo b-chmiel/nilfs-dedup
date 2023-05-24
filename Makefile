@@ -42,7 +42,7 @@ vm-debug:
 -enable-kvm \
 -virtfs local,path=$(shell pwd),mount_tag=host0,security_model=mapped,id=host0 \
 -net nic,model=virtio \
--net user,hostfwd=tcp::10022-:22 \
+-net user,hostfwd=tcp::10022-:22,hostfwd=tcp::23456-:23456 \
 -s
 
 # nokaslr -> disables address randomization CONFIG_RANDOMIZE_BASE

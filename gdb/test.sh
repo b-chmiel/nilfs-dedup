@@ -5,12 +5,13 @@
 ###############################################################################
 
 # set logging level
-# echo "1" > /proc/sys/kernel/printk
+echo "1" > /proc/sys/kernel/printk
 
 FS_FILE_SIZE=18G
 FS_BIN_FILE=/nilfs2.bin
 LOOP_INTERFACE=/dev/loop0
 MNT_DIR=/mnt/nilfs2
+GEN_SIZE=20M
 
 VALIDATION_ID=0
 
@@ -84,8 +85,8 @@ mount_nilfs
 
 validate $OUTPUT_DIRECTORY
 
-gen_file --size=4096 --type=0 --seed=420 $MNT_DIR/$FILE1
-gen_file --size=4096 --type=0 --seed=420 $MNT_DIR/$FILE2
+gen_file --size=$GEN_SIZE --type=0 --seed=420 $MNT_DIR/$FILE1
+gen_file --size=$GEN_SIZE --type=0 --seed=420 $MNT_DIR/$FILE2
 
 sha512sum $MNT_DIR/$FILE1 > $FILE1.sha512sum
 sha512sum $MNT_DIR/$FILE2 > $FILE2.sha512sum
@@ -131,7 +132,4 @@ remount_nilfs
 
 validate $OUTPUT_DIRECTORY
 
-cd /mnt/work/workflow/buildroot/output/build/nilfs-utils-2.3.0-dev-1e1b455966a62df15af9afec5362e7d90296e815
-
-nilfs_cleanerd
-nilfs-clean -v
+tmux
