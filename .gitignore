@@ -4,3 +4,4 @@ out/
 fio-job.cfg
 test_template*
 gdb.txt
+build/
