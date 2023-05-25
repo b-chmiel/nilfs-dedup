@@ -11,7 +11,7 @@ IFS=$'\n\t'
 
 cd /vagrant
 sudo bash setup.sh
-sudo bash test_template.sh NILFS2
+sudo bash test_template.sh NILFS2-DEDUP
 sudo bash teardown.sh
 HEREDOC
 
