@@ -11,9 +11,9 @@ git clone \
 	file://$(pwd)/workflow/linux \
 	build/linux
 
-VERSION=nilfsdedup-$(git rev-list --max-count=1 --abbrev-commit HEAD)
-KVERSION=$(make -C build/linux LLVM=1 kernelversion)-$(cd build/linux && git rev-list --max-count=1 --abbrev-commit HEAD)-l
-echo $VERSION
+RELEASE_NAME=nilfsdedup-$(git rev-list --max-count=1 --abbrev-commit HEAD)
+KRELEASE_NAME=$(make -C build/linux LLVM=1 kernelversion)
+echo $RELEASE_NAME
 echo $KVERSION
 
 cp config-kernel-debian build/linux/.config
@@ -23,7 +23,8 @@ make \
 	-j8 \
 	LLVM=1 \
 	DEB_BUILD_OPTIONS=nocheck \
-	LOCALVERSION=-$VERSION \
-	KDEB_PKGVERSION=$KVERSION
+	LOCALVERSION=-$KVERSION \
+	KDEB_PKGVERSION=$KVERSION-l \
+	V=1
 
-gh release create $VERSION build/linux-image*
+gh release create --generate-notes $RELEASE_NAME build/linux-image* 
