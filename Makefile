@@ -10,6 +10,9 @@ linux:
 	cp config-kernel workflow/linux/.config
 	make -C workflow/linux -j$(JOBS) LLVM=1
 
+release:
+	sh release.sh
+
 buildroot:
 	cp config-buildroot workflow/buildroot/.config
 	make -C workflow/buildroot -j$(JOBS) CC=gcc

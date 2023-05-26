@@ -20,7 +20,6 @@ echo $RELEASE_NAME
 echo $KVERSION
 
 cp config-kernel-debian $LINUX_DIR/.config
-make -C $LINUX_DIR -j8 modules_prepare
 
 make \
 	-C $LINUX_DIR \
