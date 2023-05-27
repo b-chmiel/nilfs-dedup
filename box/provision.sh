@@ -53,7 +53,7 @@ gen_file_install() {
 }
 
 nilfs_utils_install() {
-	NILFS_UTILS_VERSION=2.3.0-dev-1628ac76947472ebeb8dcfa21605f47f1df18610
+	NILFS_UTILS_VERSION=2.3.0-dev-f81c6ded3ca301b56d7cf7efba38b231305c2dcc
     DIR=./nilfs_utils_install
 
 	wget https://github.com/bachm44/nilfs-utils/releases/download/$NILFS_UTILS_VERSION/nilfs-utils-$NILFS_UTILS_VERSION.tar.bz2
@@ -68,10 +68,18 @@ nilfs_utils_install() {
 }
 
 kernel_install() {
-    KERNEL_VERSION=dat-dedup-a55606
-    KERNEL_IMAGE=linux-image-6.1.0-35fa9482ae36044c4267b4b4fae7523ce3929a2a_6.1.0-l_amd64.deb
-    wget https://github.com/bachm44/nilfs-dedup/releases/download/$KERNEL_VERSION/$KERNEL_IMAGE
+    RELEASE=nilfsdedup-f08aabf
+    KERNEL_IMAGE=linux-image-6.1.0-32b0e7d60_6.1.0-l_amd64.deb
+    KERNEL_HEADERS=linux-headers-6.1.0-32b0e7d60_6.1.0-l_amd64.deb
+    KERNEL_LIBC=linux-libc-dev_6.1.0-l_amd64.deb
+
+    wget https://github.com/bachm44/nilfs-dedup/releases/download/$RELEASE/$KERNEL_IMAGE
+    wget https://github.com/bachm44/nilfs-dedup/releases/download/$RELEASE/$KERNEL_HEADERS
+    wget https://github.com/bachm44/nilfs-dedup/releases/download/$RELEASE/$KERNEL_LIBC
+
     dpkg -i $KERNEL_IMAGE
+    dpkg -i $KERNEL_HEADERS
+    dpkg -i $KERNEL_LIBC
 }
 
 fix_keys() {
