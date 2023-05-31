@@ -38,8 +38,8 @@ sh mount_nilfs.sh
 
 validate_fs
 
-gen_file --size=1015809 --type=0 --seed=420 $MNT_DIR/f1
-gen_file --size=1015809 --type=0 --seed=420 $MNT_DIR/f2
+genfile --size=1015809 --type=0 --seed=420 $MNT_DIR/f1
+genfile --size=1015809 --type=0 --seed=420 $MNT_DIR/f2
 
 sha512sum $MNT_DIR/f1 > f1.sha512sum
 sha512sum $MNT_DIR/f2 > f2.sha512sum

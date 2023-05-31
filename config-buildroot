@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Buildroot -g4cf59226c3 Configuration
+# Buildroot -g3a6eb3b216-dirty Configuration
 #
 BR2_HAVE_DOT_CONFIG=y
 BR2_HOST_GCC_AT_LEAST_4_9=y
@@ -567,7 +567,7 @@ BR2_PACKAGE_GDB=y
 # BR2_PACKAGE_GDB_SERVER is not set
 BR2_PACKAGE_GDB_DEBUGGER=y
 BR2_PACKAGE_GDB_TUI=y
-BR2_PACKAGE_GEN_FILE=y
+BR2_PACKAGE_GENFILE=y
 BR2_PACKAGE_GOOGLE_BREAKPAD_ARCH_SUPPORTS=y
 
 #
