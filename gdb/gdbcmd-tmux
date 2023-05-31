@@ -1,0 +1,5 @@
+set follow-fork-mode child
+dir /mnt/work/workflow/buildroot/output/build/nilfs-utils-2.3.0-dev-fa603fc167b4c2640ef51a2a40ea346ceabb7dcc/lib
+dir /mnt/work/workflow/buildroot/output/build/nilfs-utils-2.3.0-dev-fa603fc167b4c2640ef51a2a40ea346ceabb7dcc/sbin
+b nilfs_xreclaim_segment
+run
