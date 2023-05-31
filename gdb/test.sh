@@ -30,7 +30,7 @@ mkdir -pv $directory
 
 function mount_nilfs {
 rm -f $FS_BIN_FILE
-fallocate -l $FS_FILE_SIZE $FS_BIN_FILE
+fallocate --verbose -l $FS_FILE_SIZE $FS_BIN_FILE
 losetup -P $LOOP_INTERFACE $FS_BIN_FILE
 mkfs.nilfs2 $LOOP_INTERFACE -B 16
 nilfs-tune -i 1 $LOOP_INTERFACE
