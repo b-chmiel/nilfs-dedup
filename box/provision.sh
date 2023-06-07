@@ -10,7 +10,7 @@ resize_partition() {
 apt_packages() {
     apt-get update && \
         export DEBIAN_FRONTEND=noninteractive && \
-        apt-get install -y --allow-unauthenticated wget make g++ uuid-dev libblkid-dev libblkid1 libmount1 libmount-dev
+        apt-get install -y --allow-unauthenticated wget make g++ uuid-dev libblkid-dev libblkid1 libmount1 libmount-dev time
 }
 
 bonnie() {
