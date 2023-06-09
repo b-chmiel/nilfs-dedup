@@ -50,7 +50,7 @@ genfile_install() {
 }
 
 nilfs_utils_install() {
-	NILFS_UTILS_VERSION=2.3.0-dev-f81c6ded3ca301b56d7cf7efba38b231305c2dcc
+	NILFS_UTILS_VERSION=2.3.0-dev-d3a37fdf4c39f90d2fafa2b5d173e240090215f2
     DIR=./nilfs_utils_install
 
 	wget https://github.com/bachm44/nilfs-utils/releases/download/$NILFS_UTILS_VERSION/nilfs-utils-$NILFS_UTILS_VERSION.tar.bz2
