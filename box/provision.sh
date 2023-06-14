@@ -50,7 +50,7 @@ genfile_install() {
 }
 
 nilfs_utils_install() {
-	NILFS_UTILS_VERSION=2.3.0-dev-d3a37fdf4c39f90d2fafa2b5d173e240090215f2
+	NILFS_UTILS_VERSION=2.3.0-dev-a729a63d394aab593ae93ccb98cb48b7d7131d34
     DIR=./nilfs_utils_install
 
 	wget https://github.com/bachm44/nilfs-utils/releases/download/$NILFS_UTILS_VERSION/nilfs-utils-$NILFS_UTILS_VERSION.tar.bz2
@@ -65,9 +65,9 @@ nilfs_utils_install() {
 }
 
 kernel_install() {
-    RELEASE=nilfsdedup-8f6ebbb
-    KERNEL_IMAGE=linux-image-6.1.0-4abe4d8eb_6.1.0-l_amd64.deb 
-    KERNEL_HEADERS=linux-headers-6.1.0-4abe4d8eb_6.1.0-l_amd64.deb 
+    RELEASE=nilfsdedup-824bffe
+    KERNEL_IMAGE=linux-image-6.1.0-09fddcac8_6.1.0-l_amd64.deb
+    KERNEL_HEADERS=linux-headers-6.1.0-09fddcac8_6.1.0-l_amd64.deb
     KERNEL_LIBC=linux-libc-dev_6.1.0-l_amd64.deb
 
     wget https://github.com/bachm44/nilfs-dedup/releases/download/$RELEASE/$KERNEL_IMAGE
