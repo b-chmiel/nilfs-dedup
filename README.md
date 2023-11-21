@@ -1,14 +1,20 @@
 # FS kernel dev setup
 
+## Building
+
+After cloning repository with all submodules run:
+1. `make linux` - compile linux kernel
+2. `make buildroot` - compile buildroot and build rootfs with rootfs-overlay
+3. `make vm-debug` - launch qemu with modified NILFS kernel module and modified nilfs-utils.
+
 ## Usage
 
 Makefile commands:
 
-- `make modules` - build module located in folder `workflow/linux/fs/ext2-inc
 - `make linux` - compile linux kernel
 - `make buildroot` - compile buildroot and build rootfs with rootfs-overlay
-- `make gdb-debug` - launch gdb with presseding in `gdb/gdbcmd`
 - `make vm-debug` - launch qemu with kernel debug support
+- `make gdb-debug` - launch gdb with presseding in `gdb/gdbcmd`
 
 ## Debugging
 

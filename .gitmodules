@@ -9,6 +9,3 @@
 [submodule "workflow/nilfs-utils"]
 	path = workflow/nilfs-utils
 	url = git@github.com:bachm44/nilfs-utils
-[submodule "workflow/zfs"]
-	path = workflow/zfs
-	url = https://github.com/openzfs/zfs

@@ -8,7 +8,7 @@ endif
 
 linux:
 	cp config-kernel workflow/linux/.config
-	make -C workflow/linux -j$(JOBS) LLVM=1
+	make -C workflow/linux -j$(JOBS)
 
 release:
 	sh release.sh
